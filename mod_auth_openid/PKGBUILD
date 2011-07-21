@@ -1,0 +1,26 @@
+# Maintainer: Tim Hartman <tbhartman at gmail>
+pkgname=mod_auth_openid
+pkgver=0.6
+pkgrel=1
+pkgdesc="The Apache OpenID Module"
+arch=('x86_32' 'x86_64')
+url=("http://findingscience.com/mod_auth_openid/")
+license=('unknown')
+depends=('apache' 'libopkele' 'sqlite2')
+makedepends=()
+source=(${pkgname}-${pkgver}.tar.gz::http://butterfat.net/releases/mod_auth_openid/${pkgname}-${pkgver}.tar.gz)
+md5sums=('f72c6a716e368f83756b25c062e70666')
+
+build() {
+  cd "$srcdir"
+  #mv `ls | grep ${pkgname}${pkgver}` "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install
+}
+

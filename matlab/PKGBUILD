@@ -1,0 +1,35 @@
+# Maintainer: Tim Hartman <tbhartman at gmail>
+pkgname=matlab
+pkgver=7.11
+pkgrel=1
+pkgdesc="A high-level language and environment for computationally intensive tasks"
+arch=('x86_64')
+url="http://www.mathworks.com/products/matlab"
+#license=("APACHE")
+depends=()
+optdepends=()
+source=("${pkgname}-${pkgver}-linux.tar.gz"
+        'installer.input'
+        'activation.properties')
+install="${pkgname}.install"
+md5sums=('127077a11bb9ba7e5d8eef3dd22e4196'
+         '1aab6d1b2201322d2621a0c7b40bb62c'
+         'cddd0c7d0c683b97eccc02ff58c073e5')
+
+package() {
+  cd "${srcdir}/"
+  mv "Matlab_R2010B_linux" "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
+  
+  ./install -
+
+  #mkdir -p "${pkgdir}/usr/lib/${pkgname}/"
+  #cp -r --preserve=all ./* "${pkgdir}/usr/lib/${pkgname}/"
+  #chown -R root:http "${pkgdir}/usr/lib/${pkgname}/Auth"
+  #chmod -R g+x "${pkgdir}/usr/lib/${pkgname}/Auth"
+
+  #mkdir -p "${pkgdir}/srv/"
+  #cd "${pkgdir}/srv"
+  #ln -s "../usr/lib/${pkgname}/Auth"  
+  
+}
